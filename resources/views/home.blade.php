@@ -12,7 +12,7 @@
                     We create <span class="text-wti-orange">solutions</span> for your business
                 </h1>
                 <p class="mt-4 text-lg text-gray-600 max-w-lg">
-                    PT. Wise Tech Integra adalah penyedia solusi IT yang berfokus pada implementasi infrastruktur, integrasi sistem, dan layanan tenaga kerja IT.
+                    PT. Wise Tech2 Integra adalah penyedia solusi IT yang berfokus pada implementasi infrastruktur, integrasi sistem, dan layanan tenaga kerja IT.
 Didirikan oleh profesional berpengalaman, kami menghadirkan solusi andal dan tepat sasaran untuk menyederhanakan operasional IT, meningkatkan keamanan, dan mendukung bisnis dari skala kecil hingga besar.</p>
             </div>
             <div class="lg:w-1/2 flex justify-center">
