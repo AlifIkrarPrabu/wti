@@ -11,9 +11,9 @@
     <p class="text-gray-600 mb-6">Proyek: <strong>{{ $file->file_name }}</strong></p>
 
     {{-- FORM --}}
-    <form action="{{ route('portal.kalkulasi.store', $file->id) }}" method="POST" id="kalkulasiForm">
+    <form action="{{ route('portal.kalkulasi.store', $file->id) }}" method="POST">
         @csrf
-        <input type="hidden" name="status" id="statusInput" value="draft">
+        <input type="hidden" name="status" id="statusInput" value="{{ $kalkulasi->status ?? 'draft' }}">
 
         {{-- INPUT ATAS --}}
         <div class="space-y-4 mb-8">
@@ -59,7 +59,31 @@
                         <th class="border p-2">Total</th>
                     </tr>
                 </thead>
-                <tbody id="barangTable"></tbody>
+                <tbody id="barangTable">
+
+                    @if(isset($kalkulasi))
+                        @foreach($kalkulasi->barang as $i => $item)
+                        <tr>
+                            <td class="border p-2">{{ $i + 1 }}</td>
+                            <td class="border p-2">
+                                {{ $item->nama }}
+                                <input type="hidden" name="barang[nama][]" value="{{ $item->nama }}">
+                            </td>
+                            <td class="border p-2">
+                                <input type="number" name="barang[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">
+                                <input type="text" name="barang[satuan][]" value="{{ $item->satuan }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">
+                                <input type="number" name="barang[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">{{ number_format($item->total, 0, ',', '.') }}</td>
+                        </tr>
+                        @endforeach
+                    @endif
+
+                </tbody>
             </table>
         </div>
 
@@ -78,21 +102,41 @@
                         <th class="border p-2">Total</th>
                     </tr>
                 </thead>
-                <tbody id="jasaTable"></tbody>
+                <tbody id="jasaTable">
+
+                    @if(isset($kalkulasi))
+                        @foreach($kalkulasi->jasa as $i => $item)
+                        <tr>
+                            <td class="border p-2">{{ $i + 1 }}</td>
+                            <td class="border p-2">
+                                {{ $item->nama }}
+                                <input type="hidden" name="jasa[nama][]" value="{{ $item->nama }}">
+                            </td>
+                            <td class="border p-2">
+                                <input type="number" name="jasa[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">
+                                <input type="text" name="jasa[deskripsi][]" value="{{ $item->deskripsi }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">
+                                <input type="number" name="jasa[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full">
+                            </td>
+                            <td class="border p-2">{{ number_format($item->total, 0, ',', '.') }}</td>
+                        </tr>
+                        @endforeach
+                    @endif
+
+                </tbody>
             </table>
         </div>
 
         {{-- BUTTON --}}
         <div class="flex justify-end gap-4 mt-8">
-            <button type="submit"
-                onclick="setStatus('draft')"
-                class="px-8 py-3 bg-green-500 text-white rounded-full">
+            <button type="submit" onclick="setStatus('draft')" class="px-8 py-3 bg-green-500 text-white rounded-full">
                 Submit
             </button>
 
-            <button type="submit"
-                onclick="setStatus('final')"
-                class="px-8 py-3 bg-red-500 text-white rounded-full">
+            <button type="submit" onclick="setStatus('final')" class="px-8 py-3 bg-red-500 text-white rounded-full">
                 Finish
             </button>
         </div>
@@ -103,8 +147,8 @@
 
 {{-- ====================== SCRIPT ====================== --}}
 <script>
-let barangCount = 0;
-let jasaCount = 0;
+let barangCount = document.querySelectorAll('#barangTable tr').length;
+let jasaCount   = document.querySelectorAll('#jasaTable tr').length;
 
 function tambahBarang() {
     const nama = document.getElementById('inputBarang').value;
@@ -118,15 +162,9 @@ function tambahBarang() {
                 ${nama}
                 <input type="hidden" name="barang[nama][]" value="${nama}">
             </td>
-            <td class="border p-2">
-                <input type="number" name="barang[harga][]" class="border rounded p-1 w-full">
-            </td>
-            <td class="border p-2">
-                <input type="text" name="barang[satuan][]" class="border rounded p-1 w-full">
-            </td>
-            <td class="border p-2">
-                <input type="number" name="barang[jumlah][]" class="border rounded p-1 w-full">
-            </td>
+            <td class="border p-2"><input type="number" name="barang[harga][]" class="border rounded p-1 w-full"></td>
+            <td class="border p-2"><input type="text" name="barang[satuan][]" class="border rounded p-1 w-full"></td>
+            <td class="border p-2"><input type="number" name="barang[jumlah][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2">-</td>
         </tr>
     `);
@@ -146,15 +184,9 @@ function tambahJasa() {
                 ${nama}
                 <input type="hidden" name="jasa[nama][]" value="${nama}">
             </td>
-            <td class="border p-2">
-                <input type="number" name="jasa[harga][]" class="border rounded p-1 w-full">
-            </td>
-            <td class="border p-2">
-                <input type="text" name="jasa[deskripsi][]" class="border rounded p-1 w-full">
-            </td>
-            <td class="border p-2">
-                <input type="number" name="jasa[jumlah][]" class="border rounded p-1 w-full">
-            </td>
+            <td class="border p-2"><input type="number" name="jasa[harga][]" class="border rounded p-1 w-full"></td>
+            <td class="border p-2"><input type="text" name="jasa[deskripsi][]" class="border rounded p-1 w-full"></td>
+            <td class="border p-2"><input type="number" name="jasa[jumlah][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2">-</td>
         </tr>
     `);
