@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KalkulasiItem extends Model
+class KalkulasiBarang extends Model
 {
+    protected $table = 'kalkulasi_barang';
+
     protected $fillable = [
-        'kalkulasi_id',
-        'type',
+        'kalkulasi_anggaran_id',
         'nama',
         'harga',
-        'jumlah',
         'satuan',
-        'deskripsi'
+        'jumlah',
+        'total',
     ];
 }

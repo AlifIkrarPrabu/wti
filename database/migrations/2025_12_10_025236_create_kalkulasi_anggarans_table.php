@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('kalkulasis', function (Blueprint $table) {
+        Schema::create('kalkulasi_anggarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_file_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('project_file_id')->constrained('project_files')->cascadeOnDelete();
             $table->enum('status', ['draft', 'final'])->default('draft');
             $table->timestamps();
         });
@@ -17,6 +17,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('kalkulasis');
+        Schema::dropIfExists('kalkulasi_anggarans');
     }
 };

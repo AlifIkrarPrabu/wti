@@ -6,6 +6,7 @@ use App\Http\Controllers\AccessController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectFileController;
+use App\Http\Controllers\Portal\KalkulasiAnggaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,18 +57,31 @@ Route::get('/dashboard', function () {
 // FITUR KALKULASI ANGGARAN PROYEK
 // ==========================================================
 
-Route::get('/portal/file-project', [ProjectFileController::class, 'index'])->name('portal.file.project');
-Route::post('/portal/file-project', [ProjectFileController::class, 'store'])->name('portal.file.project.store');
-Route::put('/portal/file-project/{id}', [ProjectFileController::class, 'update'])->name('portal.file.project.update');
-Route::delete('/portal/file-project/{id}', [ProjectFileController::class, 'destroy'])->name('portal.file.project.delete');
+Route::get('/portal/file-project', [ProjectFileController::class, 'index'])
+    ->name('portal.file.project');
+
+Route::post('/portal/file-project', [ProjectFileController::class, 'store'])
+    ->name('portal.file.project.store');
+
+Route::put('/portal/file-project/{id}', [ProjectFileController::class, 'update'])
+    ->name('portal.file.project.update');
+
+Route::delete('/portal/file-project/{id}', [ProjectFileController::class, 'destroy'])
+    ->name('portal.file.project.delete');
+
+
+// ================= KALKULASI ANGGARAN =================
 
 // Halaman kalkulasi per file proyek
-Route::get('/portal/kalkulasi/{id}', [App\Http\Controllers\KalkulasiAnggaranController::class, 'show'])
-    ->name('portal.kalkulasi.show');
+Route::get('/portal/kalkulasi/{file}', 
+    [App\Http\Controllers\Portal\KalkulasiAnggaranController::class, 'show']
+)->name('portal.kalkulasi.show');
 
-// Simpan anggaran
-Route::post('/portal/kalkulasi/{id}', [App\Http\Controllers\KalkulasiAnggaranController::class, 'store'])
-    ->name('portal.kalkulasi.store');
+// Simpan kalkulasi
+Route::post('/portal/kalkulasi/{file}', 
+    [App\Http\Controllers\Portal\KalkulasiAnggaranController::class, 'store']
+)->name('portal.kalkulasi.store');
+
 
 
 
