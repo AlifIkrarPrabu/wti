@@ -13,6 +13,28 @@
     {{-- FORM --}}
     <form action="{{ route('portal.kalkulasi.store', $file->id) }}" method="POST">
         @csrf
+
+        {{-- ====================== BUDGET ====================== --}}
+        <div class="mb-8 p-5 bg-blue-50 border border-blue-200 rounded-xl">
+            <label class="block font-bold mb-2 text-blue-800">
+                Budget Proyek
+            </label>
+
+            <div class="flex gap-4 items-center">
+                <input
+                    type="number"
+                    name="budget"
+                    value="{{ $kalkulasi->budget ?? '' }}"
+                    class="flex-1 p-3 border rounded-full"
+                    placeholder="Masukkan budget proyek..."
+                >
+
+                <span class="font-semibold text-gray-700">
+                    {{ isset($kalkulasi->budget) ? 'Bisa diubah' : 'Input sekali' }}
+                </span>
+            </div>
+        </div>
+
         <input type="hidden" name="status" id="statusInput" value="{{ $kalkulasi->status ?? 'draft' }}">
 
         {{-- INPUT ATAS --}}
@@ -140,6 +162,29 @@
                 Grand Total: Rp <span id="grandTotal">0</span>
             </div>
 
+        {{-- ====================== RINGKASAN BIAYA ====================== --}}
+        <div class="mt-10 p-5 border rounded-xl bg-gray-50 space-y-3">
+
+            <div class="flex justify-between text-lg">
+                <span class="font-semibold">Total Pengeluaran</span>
+                <span id="grandTotalText" class="font-bold text-blue-700">Rp 0</span>
+            </div>
+
+            <div class="flex justify-between text-lg">
+                <span class="font-semibold">Budget</span>
+                <span id="budgetText" class="font-bold text-gray-700">
+                    Rp {{ number_format($kalkulasi->budget ?? 0, 0, ',', '.') }}
+                </span>
+            </div>
+
+            <hr>
+
+            <div class="flex justify-between text-xl">
+                <span class="font-bold">Margin / Keuntungan</span>
+                <span id="marginText" class="font-bold text-green-600">Rp 0</span>
+            </div>
+
+        </div>
 
 
         {{-- BUTTON --}}
@@ -266,5 +311,61 @@ function setStatus(status) {
 
 // Hitung saat halaman pertama kali dibuka
 hitungGrandTotal();
+
+function formatRupiah(angka) {
+    return 'Rp ' + angka.toLocaleString('id-ID');
+}
+
+function hitungTotal() {
+    let totalBarang = 0;
+    let totalJasa   = 0;
+
+    // BARANG
+    document.querySelectorAll('#barangTable tr').forEach(row => {
+        const harga  = row.querySelector('input[name="barang[harga][]"]')?.value || 0;
+        const jumlah = row.querySelector('input[name="barang[jumlah][]"]')?.value || 0;
+        totalBarang += harga * jumlah;
+
+        const totalCell = row.children[5];
+        totalCell.innerText = formatRupiah(harga * jumlah);
+    });
+
+    // JASA
+    document.querySelectorAll('#jasaTable tr').forEach(row => {
+        const harga  = row.querySelector('input[name="jasa[harga][]"]')?.value || 0;
+        const jumlah = row.querySelector('input[name="jasa[jumlah][]"]')?.value || 0;
+        totalJasa += harga * jumlah;
+
+        const totalCell = row.children[5];
+        totalCell.innerText = formatRupiah(harga * jumlah);
+    });
+
+    const grandTotal = totalBarang + totalJasa;
+    document.getElementById('grandTotalText').innerText = formatRupiah(grandTotal);
+
+    // BUDGET & MARGIN
+    const budget = document.querySelector('input[name="budget"]')?.value || 0;
+    const margin = budget - grandTotal;
+
+    const marginText = document.getElementById('marginText');
+    marginText.innerText = formatRupiah(margin);
+
+    marginText.classList.remove('text-green-600', 'text-red-600');
+    marginText.classList.add(margin < 0 ? 'text-red-600' : 'text-green-600');
+}
+
+// AUTO HITUNG SAAT INPUT
+document.addEventListener('input', function(e) {
+    if (
+        e.target.name?.includes('harga') ||
+        e.target.name?.includes('jumlah') ||
+        e.target.name === 'budget'
+    ) {
+        hitungTotal();
+    }
+});
+
+// HITUNG SAAT LOAD (REFRESH)
+window.addEventListener('load', hitungTotal);
 </script>
 @endsection
