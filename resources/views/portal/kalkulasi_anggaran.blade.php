@@ -86,6 +86,10 @@
                 </tbody>
             </table>
         </div>
+            <div class="text-right font-bold text-lg mt-2">
+                Total Barang: Rp <span id="totalBarang">0</span>
+            </div>
+
 
         {{-- ====================== DAFTAR JASA ====================== --}}
         <h2 class="text-xl font-bold text-center mb-4">Daftar Jasa</h2>
@@ -129,6 +133,14 @@
                 </tbody>
             </table>
         </div>
+            <div class="text-right font-bold text-lg mt-2">
+                Total Jasa: Rp <span id="totalJasa">0</span>
+            </div>
+            <div class="text-right font-extrabold text-xl mt-4 text-blue-700">
+                Grand Total: Rp <span id="grandTotal">0</span>
+            </div>
+
+
 
         {{-- BUTTON --}}
         <div class="flex justify-end gap-4 mt-8">
@@ -150,6 +162,60 @@
 let barangCount = document.querySelectorAll('#barangTable tr').length;
 let jasaCount   = document.querySelectorAll('#jasaTable tr').length;
 
+function formatRupiah(angka) {
+    return angka.toLocaleString('id-ID');
+}
+
+function hitungBarang() {
+    let totalBarang = 0;
+
+    document.querySelectorAll('#barangTable tr').forEach(row => {
+        const harga = row.querySelector('input[name="barang[harga][]"]');
+        const jumlah = row.querySelector('input[name="barang[jumlah][]"]');
+        const totalCell = row.cells[5];
+
+        if (harga && jumlah) {
+            const total = (harga.value || 0) * (jumlah.value || 0);
+            totalCell.innerText = formatRupiah(total);
+            totalBarang += total;
+        }
+    });
+
+    document.getElementById('totalBarang').innerText = formatRupiah(totalBarang);
+    return totalBarang;
+}
+
+function hitungJasa() {
+    let totalJasa = 0;
+
+    document.querySelectorAll('#jasaTable tr').forEach(row => {
+        const harga = row.querySelector('input[name="jasa[harga][]"]');
+        const jumlah = row.querySelector('input[name="jasa[jumlah][]"]');
+        const totalCell = row.cells[5];
+
+        if (harga && jumlah) {
+            const total = (harga.value || 0) * (jumlah.value || 0);
+            totalCell.innerText = formatRupiah(total);
+            totalJasa += total;
+        }
+    });
+
+    document.getElementById('totalJasa').innerText = formatRupiah(totalJasa);
+    return totalJasa;
+}
+
+function hitungGrandTotal() {
+    const barang = hitungBarang();
+    const jasa   = hitungJasa();
+    document.getElementById('grandTotal').innerText = formatRupiah(barang + jasa);
+}
+
+document.addEventListener('input', function (e) {
+    if (e.target.matches('input')) {
+        hitungGrandTotal();
+    }
+});
+
 function tambahBarang() {
     const nama = document.getElementById('inputBarang').value;
     if (!nama) return;
@@ -165,7 +231,7 @@ function tambahBarang() {
             <td class="border p-2"><input type="number" name="barang[harga][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2"><input type="text" name="barang[satuan][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2"><input type="number" name="barang[jumlah][]" class="border rounded p-1 w-full"></td>
-            <td class="border p-2">-</td>
+            <td class="border p-2">0</td>
         </tr>
     `);
 
@@ -187,7 +253,7 @@ function tambahJasa() {
             <td class="border p-2"><input type="number" name="jasa[harga][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2"><input type="text" name="jasa[deskripsi][]" class="border rounded p-1 w-full"></td>
             <td class="border p-2"><input type="number" name="jasa[jumlah][]" class="border rounded p-1 w-full"></td>
-            <td class="border p-2">-</td>
+            <td class="border p-2">0</td>
         </tr>
     `);
 
@@ -197,6 +263,8 @@ function tambahJasa() {
 function setStatus(status) {
     document.getElementById('statusInput').value = status;
 }
-</script>
 
+// Hitung saat halaman pertama kali dibuka
+hitungGrandTotal();
+</script>
 @endsection
