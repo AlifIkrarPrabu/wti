@@ -36,6 +36,13 @@ class KalkulasiAnggaranController extends Controller
         $kalkulasi->status = $request->status;
         $kalkulasi->save();
 
+        //================= Proteksi===============
+        if ($kalkulasi->status === 'final') {
+            return redirect()->back()
+                ->with('error', 'Data sudah final dan tidak dapat diubah');
+        }
+
+
         // ================= BARANG =================
         if ($request->barang) {
             $kalkulasi->barang()->delete();

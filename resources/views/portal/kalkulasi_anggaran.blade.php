@@ -3,6 +3,11 @@
 @section('title', 'Kalkulasi Anggaran - ' . $file->file_name)
 
 @section('content')
+
+@php
+    $isFinal = isset($kalkulasi) && $kalkulasi->status === 'final';
+@endphp
+
 <div class="min-h-screen bg-gray-100 p-6">
 <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-lg border">
 
@@ -27,11 +32,13 @@
                     value="{{ $kalkulasi->budget ?? '' }}"
                     class="flex-1 p-3 border rounded-full"
                     placeholder="Masukkan budget proyek..."
+                    {{ $isFinal ? 'readonly' : '' }}
                 >
 
                 <span class="font-semibold text-gray-700">
-                    {{ isset($kalkulasi->budget) ? 'Bisa diubah' : 'Input sekali' }}
+                    {{ $isFinal ? 'Budget terkunci (Final)' : 'Input / Edit Budget' }}
                 </span>
+
             </div>
         </div>
 
@@ -47,7 +54,9 @@
                     placeholder="Nama Barang.....">
                 <button type="button"
                     onclick="tambahBarang()"
-                    class="px-6 py-2 bg-orange-500 text-white rounded-full">
+                    class="px-6 py-2 bg-orange-500 text-white rounded-full
+                        {{ $isFinal ? 'opacity-50 cursor-not-allowed' : '' }}"
+                    {{ $isFinal ? 'disabled' : '' }}>
                     Tambah Barang
                 </button>
             </div>
@@ -59,9 +68,12 @@
                     placeholder="Jenis Jasa.....">
                 <button type="button"
                     onclick="tambahJasa()"
-                    class="px-6 py-2 bg-orange-500 text-white rounded-full">
+                    class="px-6 py-2 bg-orange-500 text-white rounded-full
+                        {{ $isFinal ? 'opacity-50 cursor-not-allowed' : '' }}"
+                    {{ $isFinal ? 'disabled' : '' }}>
                     Tambah Jasa
                 </button>
+
             </div>
 
         </div>
@@ -92,13 +104,13 @@
                                 <input type="hidden" name="barang[nama][]" value="{{ $item->nama }}">
                             </td>
                             <td class="border p-2">
-                                <input type="number" name="barang[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full">
+                                <input type="number" name="barang[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">
-                                <input type="text" name="barang[satuan][]" value="{{ $item->satuan }}" class="border rounded p-1 w-full">
+                                <input type="text" name="barang[satuan][]" value="{{ $item->satuan }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">
-                                <input type="number" name="barang[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full">
+                                <input type="number" name="barang[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">{{ number_format($item->total, 0, ',', '.') }}</td>
                         </tr>
@@ -139,13 +151,13 @@
                                 <input type="hidden" name="jasa[nama][]" value="{{ $item->nama }}">
                             </td>
                             <td class="border p-2">
-                                <input type="number" name="jasa[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full">
+                                <input type="number" name="jasa[harga][]" value="{{ $item->harga }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">
-                                <input type="text" name="jasa[deskripsi][]" value="{{ $item->deskripsi }}" class="border rounded p-1 w-full">
+                                <input type="text" name="jasa[deskripsi][]" value="{{ $item->deskripsi }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">
-                                <input type="number" name="jasa[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full">
+                                <input type="number" name="jasa[jumlah][]" value="{{ $item->jumlah }}" class="border rounded p-1 w-full" {{ $isFinal ? 'readonly' : '' }}>
                             </td>
                             <td class="border p-2">{{ number_format($item->total, 0, ',', '.') }}</td>
                         </tr>
@@ -188,15 +200,25 @@
 
 
         {{-- BUTTON --}}
+        @if(!$isFinal)
         <div class="flex justify-end gap-4 mt-8">
-            <button type="submit" onclick="setStatus('draft')" class="px-8 py-3 bg-green-500 text-white rounded-full">
+            <button type="submit"
+                onclick="setStatus('draft')"
+                class="px-8 py-3 bg-green-500 text-white rounded-full">
                 Submit
             </button>
 
-            <button type="submit" onclick="setStatus('final')" class="px-8 py-3 bg-red-500 text-white rounded-full">
+            <button type="submit"
+                onclick="setStatus('final')"
+                class="px-8 py-3 bg-red-500 text-white rounded-full">
                 Finish
             </button>
         </div>
+        @else
+        <div class="mt-8 text-center text-red-600 font-bold">
+            🔒 Data telah dikunci (Status: Final)
+        </div>
+        @endif
 
     </form>
 </div>
