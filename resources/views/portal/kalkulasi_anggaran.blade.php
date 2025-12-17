@@ -21,26 +21,26 @@
 
         {{-- ====================== BUDGET ====================== --}}
         <div class="mb-8 p-5 bg-blue-50 border border-blue-200 rounded-xl">
-            <label class="block font-bold mb-2 text-blue-800">
+            <label class="block font-bold mb-3 text-blue-800">
                 Budget Project
             </label>
 
-            <div class="flex gap-4 items-center">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                 <input
                     type="number"
                     name="budget"
                     value="{{ $kalkulasi->budget ?? '' }}"
-                    class="flex-1 p-3 border rounded-full"
+                    class="w-full sm:flex-1 p-3 border rounded-full"
                     placeholder="Masukkan budget project..."
                     {{ $isFinal ? 'readonly' : '' }}
                 >
 
-                <span class="font-semibold text-gray-700">
+                <span class="text-sm sm:text-base font-semibold text-gray-700">
                     {{ $isFinal ? 'Budget terkunci (Final)' : 'Input / Edit Budget' }}
                 </span>
-
             </div>
         </div>
+
 
         <input type="hidden" name="status" id="statusInput" value="{{ $kalkulasi->status ?? 'draft' }}">
 
@@ -48,33 +48,44 @@
         <div class="space-y-4 mb-8">
 
             {{-- BARANG --}}
-            <div class="flex gap-4 items-center">
-                <input type="text" id="inputBarang"
-                    class="flex-1 p-3 border rounded-full"
-                    placeholder="Nama Barang.....">
-                <button type="button"
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <input
+                    type="text"
+                    id="inputBarang"
+                    class="w-full sm:flex-1 p-3 border rounded-full"
+                    placeholder="Nama Barang..."
+                >
+
+                <button
+                    type="button"
                     onclick="tambahBarang()"
-                    class="px-6 py-2 bg-orange-500 text-white rounded-full
+                    class="w-full sm:w-auto px-6 py-2 bg-orange-500 text-white rounded-full
                         {{ $isFinal ? 'opacity-50 cursor-not-allowed' : '' }}"
                     {{ $isFinal ? 'disabled' : '' }}>
                     Tambah Barang
                 </button>
             </div>
 
+
             {{-- JASA --}}
-            <div class="flex gap-4 items-center">
-                <input type="text" id="inputJasa"
-                    class="flex-1 p-3 border rounded-full"
-                    placeholder="Jenis Jasa.....">
-                <button type="button"
+            <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <input
+                    type="text"
+                    id="inputJasa"
+                    class="w-full sm:flex-1 p-3 border rounded-full"
+                    placeholder="Jenis Jasa..."
+                >
+
+                <button
+                    type="button"
                     onclick="tambahJasa()"
-                    class="px-6 py-2 bg-orange-500 text-white rounded-full
+                    class="w-full sm:w-auto px-6 py-2 bg-orange-500 text-white rounded-full
                         {{ $isFinal ? 'opacity-50 cursor-not-allowed' : '' }}"
                     {{ $isFinal ? 'disabled' : '' }}>
                     Tambah Jasa
                 </button>
-
             </div>
+
 
         </div>
 
@@ -131,7 +142,7 @@
 
             </table>
         </div>
-            <div class="text-right font-bold text-lg mt-2">
+            <div class="text-right font-bold text-lg mt-2 text-green-600">
                 Total Barang: Rp <span id="totalBarang">0</span>
             </div>
 
@@ -189,50 +200,62 @@
 
             </table>
         </div>
-            <div class="text-right font-bold text-lg mt-2">
+            <div class="text-right font-bold text-lg mt-2 text-green-600">
                 Total Jasa: Rp <span id="totalJasa">0</span>
             </div>
-            <div class="text-right font-extrabold text-xl mt-4 text-blue-700">
-                Grand Total: Rp <span id="grandTotal">0</span>
+            <div class="text-center font-extrabold text-lg sm:text-xl mt-6 text-blue-700">
+                Grand Total: <span id="grandTotal">Rp 0</span>
             </div>
+
 
         {{-- ====================== RINGKASAN BIAYA ====================== --}}
-        <div class="mt-10 p-5 border rounded-xl bg-gray-50 space-y-3">
+        <div class="mt-10 p-6 border rounded-xl bg-gray-50 space-y-4">
 
-            <div class="flex justify-between text-lg">
-                <span class="font-semibold">Total Pengeluaran</span>
-                <span id="grandTotalText" class="font-bold text-blue-700">Rp 0</span>
+            {{-- TOTAL PENGELUARAN --}}
+            <div class="grid grid-cols-2 gap-2 text-sm sm:text-base">
+                <span class="font-semibold text-gray-700">Total Pengeluaran</span>
+                <span id="grandTotalText"
+                    class="font-bold text-blue-700 text-right">
+                    Rp 0
+                </span>
             </div>
 
-            <div class="flex justify-between text-lg">
-                <span class="font-semibold">Budget</span>
-                <span id="budgetText" class="font-bold text-gray-700">
+            {{-- BUDGET --}}
+            <div class="grid grid-cols-2 gap-2 text-sm sm:text-base">
+                <span class="font-semibold text-gray-700">Budget</span>
+                <span id="budgetText"
+                    class="font-bold text-right">
                     Rp {{ number_format($kalkulasi->budget ?? 0, 0, ',', '.') }}
                 </span>
             </div>
 
-            <hr>
+            <hr class="my-2">
 
-            <div class="flex justify-between text-xl">
-                <span class="font-bold">Margin / Keuntungan</span>
-                <span id="marginText" class="font-bold text-green-600">Rp 0</span>
+            {{-- MARGIN --}}
+            <div class="grid grid-cols-2 gap-2 text-base sm:text-lg">
+                <span class="font-bold text-gray-800">Margin / Keuntungan</span>
+                <span id="marginText"
+                    class="font-extrabold text-right text-green-600">
+                    Rp 0
+                </span>
             </div>
 
         </div>
 
 
+
         {{-- BUTTON --}}
         @if(!$isFinal)
-        <div class="flex justify-end gap-4 mt-8">
+        <div class="flex flex-col sm:flex-row justify-end gap-4 mt-10">
             <button type="submit"
                 onclick="setStatus('draft')"
-                class="px-8 py-3 bg-green-500 text-white rounded-full">
+                class="w-full sm:w-auto px-8 py-3 bg-green-500 text-white rounded-full">
                 Submit
             </button>
 
             <button type="submit"
                 onclick="setStatus('final')"
-                class="px-8 py-3 bg-red-500 text-white rounded-full">
+                class="w-full sm:w-auto px-8 py-3 bg-red-500 text-white rounded-full">
                 Finish
             </button>
         </div>
