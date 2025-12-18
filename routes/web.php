@@ -7,7 +7,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectFileController;
 use App\Http\Controllers\Portal\KalkulasiAnggaranController;
-
+use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,7 +86,7 @@ Route::post('/portal/kalkulasi/{file}',
 
 
 // ==========================================================
-// FITUR BARU: KARIR
+// KARIR
 // ==========================================================
 
 // Rute GET: Halaman Karir
@@ -101,3 +101,28 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 // Route untuk memproses pengiriman form kontak (Route yang HILANG)
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+// ==========================================================
+// LAYANAN KAMI
+// ==========================================================
+
+Route::prefix('services')->name('services.')->group(function () {
+
+    Route::get('/data-centre', [ServiceController::class, 'dataCentre'])
+        ->name('data-centre');
+
+    Route::get('/enterprise-network', [ServiceController::class, 'enterpriseNetwork'])
+        ->name('enterprise-network');
+
+    Route::get('/enterprise-security', [ServiceController::class, 'enterpriseSecurity'])
+        ->name('enterprise-security');
+
+    Route::get('/profesional-service', [ServiceController::class, 'profesionalService'])
+        ->name('profesional-service');
+
+    Route::get('/internet-of-things', [ServiceController::class, 'iot'])
+        ->name('iot');
+
+    Route::get('/waste-disposal', [ServiceController::class, 'wasteDisposal'])
+        ->name('waste-disposal');
+});

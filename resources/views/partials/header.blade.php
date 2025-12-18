@@ -24,12 +24,12 @@
     <div class="absolute hidden group-hover:block left-1/2 transform -translate-x-1/2 mt-0 w-80 bg-white p-6 rounded-xl shadow-2xl border border-gray-100 transition duration-300 z-50">
         <!-- Menggunakan grid 2 kolom dengan 6 item baru -->
         <div class="grid grid-cols-2 gap-x-6 gap-y-3">
-            <a href="/services/data-centre" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Data Centre Infrastructure</a>
-            <a href="/services/enterprise-network" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Enterprise Network Infrastructure</a>
-            <a href="/services/enterprise-security" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Enterprise Security Infrastructure</a>
-            <a href="/services/profesional-service" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Profesional Service</a>
-            <a href="/services/internet-of-things" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Internet of Things</a>
-            <a href="/services/waste-disposal" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Waste Disposal</a>
+            <a href="{{ route('services.data-centre') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Data Centre Infrastructure</a>
+            <a href="{{ route('services.enterprise-network') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Enterprise Network Infrastructure</a>
+            <a href="{{ route('services.enterprise-security') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Enterprise Security Infrastructure</a>
+            <a href="{{ route('services.profesional-service') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Profesional Service</a>
+            <a href="{{ route('services.iot') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Internet of Things</a>
+            <a href="{{ route('services.waste-disposal') }}" class="text-sm text-gray-800 hover:text-wti-orange transition duration-150">Waste Disposal</a>
         </div>
     </div>
 </div>
