@@ -44,12 +44,12 @@
                 <div class="col-span-1 lg:col-span-1">
                     <h5 class="text-base font-bold text-gray-800 uppercase tracking-wider mb-5">Solusi Utama</h5>
                     <ul class="space-y-3 text-sm text-gray-600">
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Data Centre Infrastructure</a></li>
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Data Centre Infrastructure</a></li>
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Enterprise Security Infrastructure</a></li>
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Profesional Service</a></li>
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Internet of Things</a></li>
-                        <li><a href="#" class="hover:text-wti-orange transition duration-150">Waste Disposal</a></li>
+                        <li><a href="{{ route('services.data-centre') }}" class="hover:text-wti-orange transition duration-150">Data Centre Infrastructure</a></li>
+                        <li><a href="{{ route('services.enterprise-network') }}" class="hover:text-wti-orange transition duration-150">Enterprise Network Infrastructure</a></li>
+                        <li><a href="{{ route('services.enterprise-security') }}" class="hover:text-wti-orange transition duration-150">Enterprise Security Infrastructure</a></li>
+                        <li><a href="{{ route('services.profesional-service') }}" class="hover:text-wti-orange transition duration-150">Profesional Service</a></li>
+                        <li><a href="{{ route('services.iot') }}" class="hover:text-wti-orange transition duration-150">Internet of Things</a></li>
+                        <li><a href="{{ route('services.waste-disposal') }}" class="hover:text-wti-orange transition duration-150">Waste Disposal</a></li>
                     </ul>
                 </div>
 
