@@ -1,6 +1,6 @@
 @extends('layouts.app') 
 
-@section('title', 'Akses Portal Klien')
+@section('title', 'Akses Portal')
 
 @section('content')
 <style>
