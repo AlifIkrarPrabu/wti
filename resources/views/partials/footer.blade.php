@@ -81,7 +81,6 @@
     <div class="absolute bottom-0 left-0 w-full h-24 bg-wti-orange z-10" 
          style="clip-path: ellipse(150% 100% at 50% 100%);">
     </div>
-
     <!-- Teks Copyright -->
     <!-- MENGURANGI TINGGI DARI h-40 MENJADI h-24 dan menyesuaikan padding. -->
     <div class="relative w-full h-24 flex items-center justify-center z-20">
