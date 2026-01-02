@@ -1,0 +1,27 @@
+[31-Dec-2025 09:20:59 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:20:59 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:20:59 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/wisw8525/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/wisw8525/public_html/vendor/composer/autoload_real.php(38): composerRequire7c585c8773490c928b58768c435e82d9('6e3fae29631ef28...', '/home/wisw8525/...')
+#1 /home/wisw8525/public_html/vendor/autoload.php(12): ComposerAutoloaderInit7c585c8773490c928b58768c435e82d9::getLoader()
+#2 /home/wisw8525/public_html/public/index.php(14): require('/home/wisw8525/...')
+#3 {main}
+  thrown in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:02 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:02 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:02 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/wisw8525/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/wisw8525/public_html/vendor/composer/autoload_real.php(38): composerRequire7c585c8773490c928b58768c435e82d9('6e3fae29631ef28...', '/home/wisw8525/...')
+#1 /home/wisw8525/public_html/vendor/autoload.php(12): ComposerAutoloaderInit7c585c8773490c928b58768c435e82d9::getLoader()
+#2 /home/wisw8525/public_html/public/index.php(14): require('/home/wisw8525/...')
+#3 {main}
+  thrown in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:03 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:03 Asia/Jakarta] PHP Warning:  require(/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
+[31-Dec-2025 09:21:03 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/wisw8525/public_html/vendor/composer/../symfony/deprecation-contracts/function.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/wisw8525/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/wisw8525/public_html/vendor/composer/autoload_real.php(38): composerRequire7c585c8773490c928b58768c435e82d9('6e3fae29631ef28...', '/home/wisw8525/...')
+#1 /home/wisw8525/public_html/vendor/autoload.php(12): ComposerAutoloaderInit7c585c8773490c928b58768c435e82d9::getLoader()
+#2 /home/wisw8525/public_html/public/index.php(14): require('/home/wisw8525/...')
+#3 {main}
+  thrown in /home/wisw8525/public_html/vendor/composer/autoload_real.php on line 55
